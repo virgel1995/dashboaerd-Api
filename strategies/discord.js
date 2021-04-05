@@ -1,6 +1,5 @@
 const passport = require("passport")
 const DiscordStrategy = require("passport-discord")
-const { findOne } = require("../database/schemas/user")
 const User = require("../database/schemas/user")
 const Oauth2 = require("../database/schemas/Oauth2")
 const CryptoJS = require("crypto-js")
@@ -13,7 +12,7 @@ passport.serializeUser(
 passport.deserializeUser(
     async (discordId, done) => {
         try {
-            const user = await User.findOne({ discordId })
+  const user = await User.findOne({ discordId })
             return user ? done(null, user) : done(null, null)
         } catch (error) {
             done(error, null)

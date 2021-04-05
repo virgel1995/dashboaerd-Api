@@ -1,8 +1,8 @@
 const Token = process.env.CLIENT_Token
 const CryptoJS = require("crypto-js")
-const Ouath2 = require("../database/schemas/Oauth2")
+const  OauthCreadiantails  = require("../database/schemas/Oauth2")
 const fetch = require("node-fetch");
-const Oauth2 = require("../database/schemas/Oauth2");
+
 const { decrypt } = require("./utils")
 const DiscordApi = "http://discord.com/api/v8"
 /**get bot guilds from discord api */
@@ -39,7 +39,7 @@ async function getGuildChannels(guildId) {
 
 
 async function getUserGuilds(discordId) {
-    const creadiantils = await Oauth2.findOne({ discordId });
+    const creadiantils = await OauthCreadiantails.findOne({ discordId });
     if (!creadiantils) console.log("no creadiantials");
     const encryptedAccessToken = creadiantils.get("accessToken");
     const decrypted = decrypt(encryptedAccessToken);

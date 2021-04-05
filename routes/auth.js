@@ -7,7 +7,7 @@ const passport = require("passport")
 router.get ("/discord" , passport.authenticate("discord"))
 
 router.get("/discord/redirect" , passport.authenticate("discord") , (req,res) => {
-    res.redirect(`${process.env.domain}/menu`)
+    res.redirect(`http://dashborad-client.vercel.app/menu`)
 })
 
 router.get("/" , (req , res) => {

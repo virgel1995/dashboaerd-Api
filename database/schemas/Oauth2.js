@@ -18,4 +18,4 @@ refreshToken:{
 })
 
 
-module.exports = mongoose.model("Oauth2", OauthSchemas)
+module.exports = mongoose.model("OauthCreadiantails", OauthSchemas)
