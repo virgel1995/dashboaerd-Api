@@ -13,36 +13,39 @@ const cors = require("cors")
 const { graphqlHTTP } = require("express-graphql")
 const RootSchema = require("./graphql")
 const bodyParser = require("body-parser")
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 // app.use(cors())
-app.use(cors( {
-  origin: "https://dashborad-client.vercel.app" ,
-  credentials: true
-  }))
-
-  /**
-   *   preflightContinue: false,
+app.use(cors({
+  origin: "https://dashborad-client.vercel.app",
+  // preflightContinue: false,
   // optionsSuccessStatus: 204,
-   */
+  credentials: true
+}))
+// app.use(cors( {
+//   origin: "https://dashborad-client.vercel.app" ,
+//   credentials: true
+//   }))
+
+/**
+ *   preflightContinue: false,
+// optionsSuccessStatus: 204,
+ */
 // app.use(cors({
 //    origin: [process.env.Domain],
 //     credentials: true
 //     }))
 // { origin: [process.env.Domain], credentials: true})
 
-/*
-const __dirnamee = path.resolve();
-app.use(express.static(path.join(__dirnamee, '/build')));
-app.get('/*', (req, res) => {
-    let url = path.join(__dirname, '../build', 'index.html');
-   // if (!url.startsWith('/api/')){ // since we're on local windows
-     //   url = url.substring(1);
- //   }
-  //  res.sendFile(url);
-//});
-*/
+
+// const __dirnamee = path.resolve();
+// app.use(express.static(path.join(__dirnamee, '/build')));
+// app.get('/*', (req, res) => {
+//     let url = path.join(__dirname, '../build', 'index.html');
+// })
+ 
+
+
 
 
 
@@ -66,8 +69,23 @@ app.use("/graphql",
   graphqlHTTP({
     graphiql: true,
     schema: RootSchema
-  }))
+  })
+)
 
+/*
+app.get('/graphql', cors(), (req, res, next) => {
+  const data = res.json() 
+  console.log(data)
+  return data ? data : res.status(401).send({msg : 'no data from graphql sorry'})
+})
+*/
 app.use("/api", routes)
 // app.options('*', cors())
+app.use(express.static(path.join(__dirname, 'build')));
+// app.get('/menu', function (req, res) {
+//  return res.send('/menu');
+// });
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 app.listen(PORT, () => console.log("Runing on Port " + PORT))
